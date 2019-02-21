@@ -1,6 +1,11 @@
 package Participation;
 import org.junit.* ;
+
+import Participation.Customer.ServiceInfo;
+
+import java.util.*;
 import static org.junit.Assert.* ;
+
 
 /**
  * This is just a simple template for a JUnit test-class for testing 
@@ -10,7 +15,7 @@ public class Customer_test {
 	
 	//Tests for the return value of zero for no customer participations
 	@Test
-	public void pv1() {
+	public void participationValue1() {
 		System.out.println("** Testing Class: Customer | Method: participationValue | Against: No Participations");
 		Customer c = new Customer(1, "test 1.0", "");
 		assertTrue(c.participationValue() == 0);
@@ -18,7 +23,7 @@ public class Customer_test {
 	
 	//Tests for the return price of 100 for one participation in "Pizza" service
 	@Test
-	public void pv2() {
+	public void participationValue2() {
 		System.out.println("** Testing Class: Customer | Method: participationValue | Against: Return of one Participation Service price");		
 		
 		Customer c = new Customer(1, "test 1.1", "");
@@ -30,7 +35,7 @@ public class Customer_test {
 	}
 	//Tests for the return price of 1000 for five participations in services
 		@Test
-		public void pv3() {
+		public void participationValue3() {
 			System.out.println("** Testing Class: Customer | Method: participationValue | Against: Sum of 5 Participation Service prices");		
 			
 			Customer c = new Customer(1, "test 1.2", "");
@@ -50,7 +55,7 @@ public class Customer_test {
 	//-----------------------------------------------------------------------------------
 	//Tests for the return value of zero for no customer discounts
 	@Test
-	public void gdv1() {
+	public void getDiscountValue1() {
 		System.out.println("** Testing Class: Customer | Method: getDiscountValue | Against: No Customer Discounts");
 		Customer c = new Customer(2, "test 2.0", "");
 		assertTrue(c.getDiscountValue() == 0);
@@ -58,7 +63,7 @@ public class Customer_test {
 	
 	//Expecting return value of 0 for Discount value, for no participations 
 	@Test
-	public void gdv2() {
+	public void getDiscountValue2() {
 		System.out.println("** Testing Class: Customer | Method: getDiscountValue | Against: One Customer Discount 5 Pack w/ no Participations");
 		Customer c = new Customer(2, "test 2.1", "");
 		Discount d = new Discount_5pack();
@@ -69,7 +74,7 @@ public class Customer_test {
 	
 	//Expecting return value of 0 for Discount value, for < 5 participations
 	@Test
-	public void gdv3() {
+	public void getDiscountValue3() {
 		System.out.println("** Testing Class: Customer | Method: getDiscountValue | Against: One Customer Discount 5 Pack w/ 1 Participations");
 		Customer c = new Customer(2, "test 2.2", "");
 		Discount d = new Discount_5pack();
@@ -83,7 +88,7 @@ public class Customer_test {
 	
 	//Expecting return value of 10 (Discount_5Pack gives 10 Euro discount for >= 5 services)
 	@Test
-	public void gdv4() {
+	public void getDiscountValue4() {
 		System.out.println("** Testing Class: Customer | Method: getDiscountValue | Against: One Customer Discount 5 Pack w/ 5 Participations");
 		Customer c = new Customer(2, "test 2.3", "");
 		Discount d = new Discount_5pack();
@@ -110,7 +115,7 @@ public class Customer_test {
 	
 	//Expecting return value of 20 (2 Discount_5Packs gives 2*(10) Euro discount for >= 5 services)
 	@Test
-	public void gdv5() {
+	public void getDiscountValue5() {
 		System.out.println("** Testing Class: Customer | Method: getDiscountValue | Against: One Customer 2 Discount 5 Packs w/ 5 Participations");
 		Customer c = new Customer(2, "test 2.3", "");
 		Discount d0 = new Discount_5pack();
@@ -132,14 +137,13 @@ public class Customer_test {
 		c.participations.add(p1);
 		c.participations.add(p2);
 		c.participations.add(p3);
-		c.participations.add(p4);
-		System.out.println(c.getDiscountValue());
+		c.participations.add(p4);		
 		assertTrue(c.getDiscountValue() == 2*10);
 	}
 	//-----------------------------------------------------------------------------------
 	//Expecting the return value of zero for no Customer costs and no Discounts
 	@Test
-	public void gctp1() {
+	public void getCostTopPay1() {
 		System.out.println("** Testing Class: Customer | Method: getCostToPay | Against: Customer w/ no Participations or Discounts");
 		Customer c = new Customer(3, "test 3.0", "");
 		assertTrue(c.getCostToPay() == 0);
@@ -147,7 +151,7 @@ public class Customer_test {
 	
 	//Expecting the return value of 200 for 2 Customer Participations and no Discounts
 	@Test
-	public void gctp2() {
+	public void getCostTopPay2() {
 		System.out.println("** Testing Class: Customer | Method: getCostToPay | Against: Customer w/ 2 Participations and no Discounts");
 		Customer c = new Customer(3, "test 3.1", "");
 		Service s = new Service(3, "Maid for ya Dirty House", 100);		
@@ -160,7 +164,7 @@ public class Customer_test {
 	
 	//Expecting the return value of 200 for 2 Customer Participations and non applicable Discount_5pack (s < 5)
 	@Test
-	public void gctp3() {
+	public void getCostTopPay3() {
 		System.out.println("** Testing Class: Customer | Method: getCostToPay | Against: Customer w/ 2 Participations and non-applicable Discount_5Pack");
 		Customer c = new Customer(3, "test 3.2", "");
 		Service s0 = new Service(0, "Maid for ya Dirty House", 100);
@@ -177,7 +181,7 @@ public class Customer_test {
 	
 	//Expecting the return of 1000-10 = 990 euros for cost to pay for 5 Participations and an applicable Discount_5Pack 
 	@Test
-	public void gctp4() {
+	public void getCostTopPay4() {
 		System.out.println("** Testing Class: Customer | Method: getCostToPay | Against: Customer w/ 5 Participations and applicable Discount_5Pack");
 		Customer c = new Customer(3, "test 3.3", "");
 		Service s0 = new Service(0, "Maid for ya Dirty House", 200);
@@ -203,9 +207,46 @@ public class Customer_test {
 	//-----------------------------------------------------------------------------------
 	//Tests for the return value of zero for no customer participation groups
 	@Test
-	public void gpg1() {
-		System.out.println("** Testing Class: Customer | Method: getParticipationGroups");
-		Customer c = new Customer(4, "test 4", "");		
-		assertTrue(c.getParticipationGroups() == null);
+	public void getParticitipationGroups1() {
+		System.out.println("** Testing Class: Customer | Method: getParticipationGroups | Against: Unassigned ParticipationGroup is empty");
+		Customer c = new Customer(4, "test 4.0", "");		
+				
+		assertTrue(c.getParticipationGroups().isEmpty());
+	}
+	
+	@Test
+	public void getParticitipationGroups2() {
+		System.out.println("** Testing Class: Customer | Method: getParticipationGroups | Against: ParticipationGroup matches assigned Participations");
+		Customer c = new Customer(4, "test 4.1", "");		
+		Service s = new Service(4, "Speedy Lube Oil Change", 1000);
+		Participation p = new Participation(c, s);
+		c.participations.add(p);
+		
+		Set<Participation> sp = new HashSet<Participation>();
+		sp.add(p);
+		
+		Map<Service,Customer.ServiceInfo> scs = getParticipationGroupsHelper(sp);		
+		System.out.println(c.getParticipationGroups().equals(scs));
+		assertTrue(c.getParticipationGroups().equals(scs));
+	}
+	
+	
+	//Helper Method for Mapping Services & ServiceInfo
+	//Code directly copied from Customer.java of the Business Model Software program from A1 of ESOF423 at MSU
+	public Map<Service,Customer.ServiceInfo> getParticipationGroupsHelper(Set<Participation> participations) {
+		
+		Map<Service,ServiceInfo> result = new HashMap<Service,ServiceInfo>() ;
+		
+		for (Participation P : participations) {
+			Customer.ServiceInfo info = result.get(P.service) ;
+			if (info==null) {
+				info = new Customer.ServiceInfo() ;
+				result.put(P.service,info) ;
+			}
+			info.totalParticipationValue += P.service.price ;
+			info.participations.add(P) ;
+		}
+		
+		return result;
 	}
 }
