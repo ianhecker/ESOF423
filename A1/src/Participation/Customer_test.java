@@ -225,9 +225,10 @@ public class Customer_test {
 		Set<Participation> sp = new HashSet<Participation>();
 		sp.add(p);
 		
-		Map<Service,Customer.ServiceInfo> scs = getParticipationGroupsHelper(sp);		
-		System.out.println(c.getParticipationGroups().equals(scs));
-		assertTrue(c.getParticipationGroups().equals(scs));
+		Map<Service,Customer.ServiceInfo> scs = getParticipationGroupsHelper(sp);
+		Map<Service,Customer.ServiceInfo> cscs = c.getParticipationGroups();
+		
+		assertTrue(cscs.equals(scs));
 	}
 	
 	

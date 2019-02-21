@@ -19,10 +19,10 @@ public class ApplicationLogic_test {
 	 * delete the whole database file. 
 	 */
 	private void setupDB() {
-		Persistence.wipedb() ;
+		Persistence.wipedb() ; 
 	}
 	
-	
+	/*
 	@Test
 	public void test1() {
 		// We'll always begin by reseting the database. This makes sure
@@ -63,5 +63,132 @@ public class ApplicationLogic_test {
 		Customer C = SUT.findCustomer(duffyID) ;
 		assertTrue(C.getCostToPay() == 200) ;
 	}
+	*/
+	
+	//Expecting return of null for removed service from database using findService() method
+	@Test
+	public void removeService1() {
+		setupDB();
+		System.out.println("** Testing Class: ApplicationLogic | Method: removeService & findService | Against: removing existing service");
+		ApplicationLogic A = new ApplicationLogic();		
+		
+		int sid = A.addService("Banana Delivery", 100);		
+		A.removeService(sid);
+		
+		assertTrue(A.findService(sid) == null);
+	}
+	
+	//Expecting return of false for removed service from database using serviceExists() method
+	@Test
+	public void removeService2() {
+		setupDB();
+		System.out.println("** Testing Class: ApplicationLogic | Method: removeService & serviceExists | Against: removing existing service");
+		ApplicationLogic A = new ApplicationLogic();		
+		
+		int sid = A.addService("Banana Delivery", 100);		
+		A.removeService(sid);
+		
+		assertTrue(A.serviceExists(sid) == false);
+	}
+		
+	//Expecting return of null for removed service from database using findService() 
+	//Testing against use of removeService() on empty database and non-existing ID 
+	@Test
+	public void removeService3() {
+		setupDB();
+		System.out.println("** Testing Class: ApplicationLogic | Method: removeService & findService | Against: removing non-exisiting negative ID from empty DB");
+		ApplicationLogic A = new ApplicationLogic();		
+		
+		int sid = -1;		
+		A.removeService(sid);
+		
+		assertTrue(A.findService(sid) == null);
+	}
+
+	//Expecting return of null for removed service from database using findService() 
+	//Testing against use of removeService() on empty database and non-existing ID 
+	@Test
+	public void removeService4() {
+		setupDB();
+		System.out.println("** Testing Class: ApplicationLogic | Method: removeService & findService | Against: removing non-exisiting positive ID from empty DB");
+		ApplicationLogic A = new ApplicationLogic();		
+		
+		int sid = 69;		
+		A.removeService(sid);
+		
+		assertTrue(A.findService(sid) == null);
+	}
+	
+	//Expecting return of null for removed service from database using findService() 
+	//Testing against use of removeService() on empty database and non-existing ID 
+	@Test
+	public void removeService5() {
+		setupDB();
+		System.out.println("** Testing Class: ApplicationLogic | Method: removeService & findService | Against: removing non-exisiting negative ID from populated DB");
+		ApplicationLogic A = new ApplicationLogic();		
+		
+		A.addService("Banana Delivery", 100);
+		int sid = -1;
+		A.removeService(sid);
+		
+		assertTrue(A.findService(sid) == null);
+	}
+	
+	//Expecting return of null for removed service from database using findService() 
+	//Testing against use of removeService() on populated database and non-existing ID 
+	@Test
+	public void removeService6() {
+		setupDB();
+		System.out.println("** Testing Class: ApplicationLogic | Method: removeService & findService | Against: removing non-exisiting positive ID from populated DB");
+		ApplicationLogic A = new ApplicationLogic();		
+		
+		A.addService("Banana Delivery", 100);
+		int sid = 69;
+		A.removeService(sid);
+		
+		assertTrue(A.findService(sid) == null);
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
