@@ -6,7 +6,7 @@ import static org.junit.Assert.* ;
 
 public class Discount_1000_test {
 
-	//Expecting return of false for applicable() because customer does have services over 1000
+	//Expecting return of false for applicable() because customer does not have services over 1000
 	@Test
 	public void Applicable1() {
 		System.out.println("** Testing Class: Discount_1000 | Method: Applicable | Against: Only one customer participation");
@@ -16,8 +16,7 @@ public class Discount_1000_test {
 		Discount_1000 d0 = new Discount_1000();
 		
 		c0.participations.add(p0);
-		boolean getDiscount = d0.applicable(c0);
-		assertTrue(getDiscount == false);
+		assertTrue(d0.applicable(c0) == false);
 	}
 	
 	//Expecting return of true for applicable() because customer does have services over 100000 total cost
@@ -59,28 +58,43 @@ public class Discount_1000_test {
 		assertTrue(d0.applicable(c0) == true);
 	}
 
+	//Expecting return of 7500 for having a total service cost of 150 * 1000 minimum required, so 150 * 50 = 7500
 	@Test
 	public void calcDiscount1() {
-		System.out.println("** Testing Class: Discount_1000 | Method: calcDiscount");
+		System.out.println("** Testing Class: Discount_1000 | Method: calcDiscount | Against: Having a total service cost that is 150 times greater than minimum required");
 		Customer c0 = new Customer(1, "Lil Wayne", "");
 		Service s0 = new Service(1, "Socks on in the jacuzzi", 150000);
 		Participation p0 = new Participation(c0, s0);
 		c0.participations.add(p0);
 		
 		Discount_1000 d0 = new Discount_1000();		
-		assertTrue(d0.calcDiscount(c0) == 5000);
+		assertTrue(d0.calcDiscount(c0) == 7500);
 	}
 	
+	//Expecting return of 0 for having no total service cost above 1000
 	@Test
 	public void calcDiscount2() {
-		System.out.println("** Testing Class: Discount_1000 | Method: calcDiscount");
+		System.out.println("** Testing Class: Discount_1000 | Method: calcDiscount | Against: Having a total service cost less than minimum required");
 		Customer c0 = new Customer(1, "Poor Boy", "");
 		Service s0 = new Service(1, "Bread and Water", 1);
 		Participation p0 = new Participation(c0, s0);
 		c0.participations.add(p0);
 		
-		Discount_1000 d0 = new Discount_1000();		
+		Discount_1000 d0 = new Discount_1000();	
 		assertTrue(d0.calcDiscount(c0) == 0);
+	}
+	
+	//Expecting return of 50*2 = 100 discount for having a service that is 2 * 1000, therefore returning 100
+	@Test
+	public void calcDiscount3() {
+		System.out.println("** Testing Class: Discount_1000 | Method: calcDiscount | Against: Discount of 50*2 for having a service cost of 2 * the minimum required cost");
+		Customer c0 = new Customer(1, "Peasant", "");
+		Service s0 = new Service(1, "Beets and Potatoes", 2000);
+		Participation p0 = new Participation(c0, s0);
+		c0.participations.add(p0);
+		
+		Discount_1000 d0 = new Discount_1000();
+		assertTrue(d0.calcDiscount(c0) == 50*2);
 	}
 
 }

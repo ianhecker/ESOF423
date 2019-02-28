@@ -2,6 +2,8 @@ package Participation;
 import org.junit.* ;
 import static org.junit.Assert.* ;
 
+import java.util.*;
+
 /**
  * This is just a simple template for Junit test-class for testing
  * the class ApplicationLogic. Testing this class is a bit more
@@ -21,50 +23,7 @@ public class ApplicationLogic_test {
 	private void setupDB() {
 		Persistence.wipedb() ; 
 	}
-	
-	/*
-	@Test
-	public void test1() {
-		// We'll always begin by reseting the database. This makes sure
-		// the test start from a clean, well defined state of the database.
-		// In this case it would be just an empty database, though it 
-		// doesn't have to be like that.
-		setupDB() ;
-		
-		System.out.println("** Testing add customer...") ;
-		
-		// Creating the target thing you want to test:
-		ApplicationLogic SUT = new ApplicationLogic() ;
-		
-		// Now let's perform some testing. If we add a customer to the system,
-		// test that this customer should then be really added to the system:
-		int duffyID = SUT.addCustomer("Duffy Duck", "") ;
-		Customer C = SUT.findCustomer(duffyID) ;
-		assertTrue(C.name.equals("Duffy Duck")) ;
-		assertTrue(C.email.equals("")) ;		
-	}
-	
-	// Another example...
-	@Test
-	public void test2() {
-		setupDB() ;
-		ApplicationLogic SUT = new ApplicationLogic() ;
-		
-		System.out.println("** Testing getCostToPay ...") ;
-		
-		int duffyID = SUT.addCustomer("Duffy Duck", "") ;
-		int flowerServiceID = SUT.addService("Flowers online shop", 100) ;
-		// let Duffy but 2x participations on Flower-online:
-		SUT.addParticipation(duffyID, flowerServiceID) ;
-		SUT.addParticipation(duffyID, flowerServiceID) ;
 
-		// Now let's check if the system correctly calculates the participation
-		// cost of Duffy:
-		Customer C = SUT.findCustomer(duffyID) ;
-		assertTrue(C.getCostToPay() == 200) ;
-	}
-	*/
-	
 	//Expecting return of null for removed service from database using findService() method
 	@Test
 	public void removeService1() {
@@ -180,44 +139,47 @@ public class ApplicationLogic_test {
 		assertTrue(A.findService(sid) == null);
 	}
 
+	//Expected return of empty Map, since there are no entries in the database
+	@Test
+	public void resolve1() {
+		setupDB();
+		System.out.println("** Testing Class: ApplicationLogic | Method: resolve | Against: Calling resolve on empty Database");
+		ApplicationLogic A = new ApplicationLogic();
+		
+		Map<Customer, Integer> ci = new HashMap<Customer, Integer>();
+		
+		ci = A.resolve();
+		assertTrue(ci.isEmpty());
+	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	//Expected return of 950 euros after applied discount for total cost of 1000 
+	@Test
+	public void resolve2() {
+		setupDB();
+		System.out.println("** Testing Class: ApplicationLogic | Method: resolve | Against: ");
+		Discount_1000 d = new Discount_1000();		
+		ApplicationLogic A = new ApplicationLogic();						
+						
+		int cid = A.addCustomer("Mr.Resolve", "");
+		int sid = A.addService("Resolving", 1000);
+		
+		Customer c = A.findCustomer(cid);
+		Service s = A.findService(sid);		
+		Participation p = new Participation(c, s);
+		
+		A.addParticipation(cid, sid);		
+				
+		c.discounts.add(d);
+		c.participations.add(p);
+		
+		Map<Customer, Integer> ci = new HashMap<Customer, Integer>();
+		ci = A.resolve();
+		int tmp = 0;
+		for(Customer customer : ci.keySet()) {
+			tmp = ci.get(customer);
+		}
+		float customerCost = (float) tmp / 100f;
+		System.out.println(customerCost);
+		assertTrue(customerCost == 1000-50);
+	}	
 }
