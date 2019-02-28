@@ -227,7 +227,7 @@ public class Customer_test {
 		
 		Map<Service,Customer.ServiceInfo> scs = getParticipationGroupsHelper(sp);
 		Map<Service,Customer.ServiceInfo> cscs = c.getParticipationGroups();
-		
+		 
 		assertTrue(cscs.equals(scs));
 	}
 	

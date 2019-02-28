@@ -145,7 +145,7 @@ public class ApplicationLogic_test {
 		A.addService("Banana Delivery", 100);
 		int sid = 69;
 		A.removeService(sid);
-		
+		 
 		assertTrue(A.findService(sid) == null);
 	}
 	
