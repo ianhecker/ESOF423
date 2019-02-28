@@ -149,7 +149,36 @@ public class ApplicationLogic_test {
 		assertTrue(A.findService(sid) == null);
 	}
 	
-	
+	//
+	@Test
+	public void removeService7() {
+		setupDB();
+		System.out.println("** Testing Class: ApplicationLogic | Method: removeService | Against: Removing Service with existing Customers involved in Participation with Service to be removed");
+		ApplicationLogic A = new ApplicationLogic();
+		
+		Customer c0 = new Customer(1, "Bob", "");
+		Customer c1 = new Customer(2, "Joe", "");
+		Customer c2 = new Customer(3, "Curly", "");
+		Customer c3 = new Customer(4, "Mike", "");
+		
+		Service s = new Service(1, "Walt Disney Delivery", 100);
+		
+		int cid0 = A.addCustomer(c0.name, c0.email);
+		int cid1 = A.addCustomer(c1.name, c1.email);
+		int cid2 = A.addCustomer(c2.name, c2.email);
+		int cid3 = A.addCustomer(c3.name, c3.email);
+		
+		int sid = A.addService(s.name, s.price);
+		
+		A.addParticipation(cid0, sid);
+		A.addParticipation(cid1, sid);
+		A.addParticipation(cid2, sid);
+		A.addParticipation(cid3, sid);
+		
+		A.removeService(sid);
+		
+		assertTrue(A.findService(sid) == null);
+	}
 
 	
 	
