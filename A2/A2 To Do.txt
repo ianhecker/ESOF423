@@ -1,0 +1,19 @@
+Required to refactor gui_init() methods in jftp classes:
+    RemoteDir.java
+    LocalDir.java
+    
+need to:
+    Identify code smells
+    Refactor code to remove code smells. 
+        Can create new functions & classes
+        Not required to write JUnit cases
+        Are Required to manually test gui before/after refactoring 
+        
+Submit:
+    pdf listing code smells you identified
+    Each code smell, describe how you refactored the code to remove smell
+    Refactored code base as zip archive
+    
+    
+
+    

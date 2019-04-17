@@ -1,0 +1,49 @@
+Ian Hecker
+ESOF 423
+A2
+
+Code Smells:
+
+    Make reusable gui class (inheritance, overide methods)
+        + make local & remote-specific button classes
+        + buttonpanel.add()
+            Adds created button varibles in method (made above)
+            Move to seperate method
+                for loop of .add() on list of button objects?
+        + JPanel code is same in both classes
+            Move to reusable gui class
+            Move to seperate method
+        + MouseListener is identical in both classes
+            Move to reusable gui class
+            Move to seperate method
+            - Checks against null objects?
+                Fix that somehow???
+        + MouseClicked is very similar
+            Pass option to reusable gui if local or remote
+            Move to seperate method
+        + JScrollPane
+            seperate method
+            
+
+    RemoteDir.java
+        gui_init()
+            - HUGE METHOD
+                Way too long
+                Break into smaller methods? seperate into variable/object creation methods?
+                Mouse* methods seperate from gui_init method? 
+                    seperate class, pass in params
+                
+            - Long call names:
+               Line 393 & 403 & 404 "jsp.getHorizontalScrollBar().addAdjustmentListener(adjustmentListener);"
+                          
+    LocalDir.java
+        gui_init()
+            - HUGE METHOD
+            - buttonPanel
+                Line 240 - 261
+                Seperate class
+                reuse for other gui_init() method?
+            - buttons
+                seperate class
+                Can reuse for both gui_init() methods
+                

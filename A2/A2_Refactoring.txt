@@ -1,0 +1,165 @@
+Ian Hecker
+ESFO423
+A2
+
+RemoteDir.java
+    gui_init()
+        Lines Before:                   Lines After:
+            239                             48
+        
+        Methods Created:                Lines Moved Out:
+            createflowLayout()              -3
+            createRnButton()                -2                
+            createDeleteButton()            -2                
+            createMkdirbutton()             -2                
+            createRefreshButton()           -4
+            createCdButton()                -2
+            createCmdButton()               -2
+            createDownloadButton()          -5
+            createQueueButton()             -2
+            createCdUpButton                -2
+            createButtons()                 -9
+            configureButtonpanel()          -5
+            addButtonsToButtonPanel()       -14
+            setButtonPanel()                -2
+            createJList()                   -6
+            createJPanel()                  -4
+            createMouseListener()           -94
+            createAdjustmentListener()      -5
+            configureCurrDirPanel           -4
+            checkIsJava_v_1_6()             -2
+            configureJsp()                  -3
+            
+LocalDir.java
+    gui_init()
+        Lines Before:                   Lines After:
+            226                             46
+        Methods Created:                Lines Moved Out:
+            configureButtonPanel()          -4
+            createFlowLayout()              -3
+            createDeleteButton()            -2
+            createMkdirButton()             -2
+            createRefreshButton()           -4
+            createCdButton()                -2
+            createUploadButton()            -5
+            createZipButton()               -2
+            createCpButton()                -2
+            createRnButton()                -2
+            createCdUpButton()              -2
+            createButtons()                 -9
+            configureCurrDirPanel()         -5
+            popUpMenuAddActionListener()    -6
+            addButtonsToButtonPanel()       -13
+            setButtonPanel()                -2
+            createJPanel()                  -4
+            createJList()                   -4
+            createMouseListener()           -83
+            createAdjustmentListener()      -6
+            configureJsp()                  -3
+            checkIsJava_v_1_6               -2
+            
+Duplicate Code Removed:
+    Code:
+        FlowLayout f = new FlowLayout(//FlowLayout.Constant//);
+        f.setHgap(1);
+        f.setVgap(2);
+        
+    How was removed:
+        Created method in parent class of LocalDir.java/RemoteDir.java
+        Method: 
+            public FlowLayout createFlowLayout(int flowLayoutConstant) {
+                FlowLayout f = new FlowLayout(flowLayoutConstant);
+                f.setHgap(1);
+                f.setVgap(2);
+                return f;
+            }
+    Duplicate Lines removed: -3
+    #--------------------------
+    Code:        
+    	JPanel j = new JPanel();
+        j.setLayout(new BorderLayout());
+        j.add("Center", p);        
+        j.add(//String of location//, //button//);             
+    
+    How was removed: 
+        Created method in DirComponent, parent class of LocalDir & RemoteDir
+        Method:
+            public JPanel createJPanel(String location, HImageButton b, JPanel p) {
+                JPanel j = new JPanel();
+                j.setLayout(new BorderLayout());
+                j.add("Center", p);                   
+                j.add(location, b);
+                return j;
+            }
+    Duplicate Lines removed: -4
+    #--------------------------
+    Code:         
+    	buttonPanel.setVisible(true);
+        buttonPanel.setSize(getSize().width - 10, 32);
+    How was removed:
+        Created method in DirComponent, parent class of LocalDir & RemoteDir
+        Method:
+            public void setButtonPanel(JToolBar b) {
+                b.setVisible(true);
+                b.setSize(getSize().width - 10, 32);
+            }
+    Duplicate Lines removed: -2
+    #--------------------------
+    Code:        
+    	AdjustmentListener al = new AdjustmentListener() {
+            public void adjustmentValueChanged(AdjustmentEvent e) {
+                jsp.repaint();
+                jsp.revalidate();
+            }
+        };        
+    How was removed:
+        Created method in DirComponent, parent class of LocalDir & RemoteDir
+            public AdjustmentListener createAdjustmentListener(JScrollPane jsp) {
+                AdjustmentListener al = new AdjustmentListener() {
+                public void adjustmentValueChanged(AdjustmentEvent e) {
+                    jsp.repaint();
+                    jsp.revalidate();
+                    }
+                };
+                return al;
+            }
+    Duplicate Lines removed: -4
+    #--------------------------
+    Code:    
+    	jsp.getHorizontalScrollBar().addAdjustmentListener(al);
+        jsp.getVerticalScrollBar().addAdjustmentListener(al);
+        jsp.setSize(getSize().width - 20, getSize().height - 72);
+    How was removed:
+        Created method in DirComponent, parent class of LocalDir & RemoteDir     
+            public void configureJsp(AdjustmentListener al, JScrollPane jsp) {
+                jsp.getHorizontalScrollBar().addAdjustmentListener(al);
+                jsp.getVerticalScrollBar().addAdjustmentListener(al); 
+                jsp.setSize(getSize().width - 20, getSize().height - 72);        
+            }
+    Duplicated Lines removed: -3
+    #---------------------------
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        
+            
+            
+            
